@@ -1,0 +1,67 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+    <changeSet author="anderson" id="01_create_tables">
+        <createTable tableName="perfil">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true" primaryKeyName="pk_perfil"/>
+            </column>
+            <column name="nome" type="VARCHAR(255)"/>
+        </createTable>
+        <createTable tableName="usuario">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true" primaryKeyName="pk_usuario"/>
+            </column>
+            <column name="nome" type="VARCHAR(255)"/>
+            <column name="email" type="VARCHAR(255)"/>
+            <column name="senha" type="VARCHAR(255)"/>
+            <column name="ativo" type="BOOLEAN"/>
+            <column name="perfil_id" type="BIGINT"/>
+        </createTable>
+        <createTable tableName="pessoa">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true" primaryKeyName="pk_pessoa"/>
+            </column>
+            <column name="CPF" type="VARCHAR(20)"/>
+            <column name="nome" type="VARCHAR(255)"/>
+            <column name="endereco" type="VARCHAR(255)"/>
+            <column name="numero_endereco" type="VARCHAR(20)"/>
+            <column name="complemento_endereco" type="VARCHAR(255)"/>
+            <column name="CEP" type="VARCHAR(20)"/>
+            <column name="bairro" type="VARCHAR(255)"/>
+            <column name="cidade" type="VARCHAR(255)"/>
+            <column name="UF" type="VARCHAR(2)"/>
+        </createTable>
+        <createTable tableName="divida">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true" primaryKeyName="pk_divida"/>
+            </column>
+            <column name="pessoa_id" type="BIGINT"/>
+            <column name="valor_credito" type="DECIMAL(12, 2)"/>
+            <column name="valor_devido" type="DECIMAL(12, 2)"/>
+            <column name="saldo_devido" type="DECIMAL(12, 2)"/>
+            <column name="valor_pago" type="DECIMAL(12, 2)"/>
+            <column name="data_credito" type="DATE"/>
+            <column name="data_quitacao" type="DATE"/>
+            <column name="situacao" type="VARCHAR(50)"/>
+            <column name="instituicao" type="VARCHAR(255)"/>
+            <column name="dias_atraso" type="INT"/>
+        </createTable>
+        <addForeignKeyConstraint baseColumnNames="pessoa_id"
+                                 baseTableName="divida"
+                                 constraintName="fk_divida_pessoa"
+                                 onDelete="CASCADE"
+                                 onUpdate="CASCADE"
+                                 referencedColumnNames="id"
+                                 referencedTableName="pessoa"/>
+        <addForeignKeyConstraint baseColumnNames="perfil_id"
+                                 baseTableName="usuario"
+                                 constraintName="fk_usuario_perfil"
+                                 onDelete="CASCADE"
+                                 onUpdate="CASCADE"
+                                 referencedColumnNames="id"
+                                 referencedTableName="perfil"/>
+    </changeSet>
+</databaseChangeLog>
