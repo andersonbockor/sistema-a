@@ -26,4 +26,10 @@ http://ec2-18-231-146-162.sa-east-1.compute.amazonaws.com:8080/api/pessoa/all
 
 No Header, passe “Authorization" = “Bearer <token>" 
 O token expira em 1 dia.
+ 
+
+Atenção: Caso o sistema não esteja rodando, pode entrar em contato comigo ou rodar via terminal: 
+
+ssh -i <certificado> ubuntu@ec2-18-231-146-162.sa-east-1.compute.amazonaws.com  
+java -jar sistema-a-0.0.1-SNAPSHOT.jar 
 
